@@ -98,4 +98,16 @@ class ReservaController extends Controller
 
         return response()->json($reserva);
     }
+
+    public function gestionReservas()
+    {
+
+        return view('reservations.gestionReservas');
+    }
+
+    public function reservas()
+    {
+
+        return view('reservations.reservas');
+    }
 }

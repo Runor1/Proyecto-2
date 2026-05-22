@@ -68,4 +68,14 @@ class UsuarioController extends Controller
         $user->delete();
         return response()->json(['message' => 'Usuario eliminado']);
     }
+
+    public function getHistorial()
+    {
+
+        return view('user.historial');
+    }
+
+    public function getHorarioClases(){
+        return view('user.horarioClases');
+    }
 }
