@@ -25,7 +25,7 @@
         </div>
 
         <div class="d-flex gap-2">
-            <a href="/adminDashboard" class="btn btn-login-neon">Volver</a>
+            <a href="/admin" class="btn btn-login-neon">Volver</a>
         </div>
     </nav>
 

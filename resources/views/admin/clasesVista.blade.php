@@ -24,7 +24,7 @@
                 + Crear Clase
             </button>
 
-            <a href="/adminDashboard" class="btn btn-login-neon">
+            <a href="/admin" class="btn btn-login-neon">
                 Volver
             </a>
         </div>

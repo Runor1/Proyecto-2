@@ -29,13 +29,13 @@
         <div class="d-flex gap-2">
 
             <button class="btn btn-main"
-                onclick="window.location.href='/registro'">
+                onclick="window.location.href='/formulario'">
 
                 + Crear Usuario
 
             </button>
 
-            <a href="/adminDashboard"
+            <a href="/admin"
                 class="btn btn-login-neon">
 
                 Volver

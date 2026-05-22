@@ -38,7 +38,7 @@
 
                     <div class="text-center mt-3">
                         <span>¿No tienes cuenta?</span>
-                        <a href="/registro" class="link-light fw-bold">Crear cuenta</a>
+                        <a href="/formulario" class="link-light fw-bold">Crear cuenta</a>
                     </div>
                 </div>
 
@@ -54,5 +54,65 @@
 
     </div>
 </body>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+
+        e.preventDefault();
+
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        try {
+
+            var response = await fetch('/api/login', {
+
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+
+            });
+
+            var data = await response.json();
+
+            if (response.ok) {
+
+                localStorage.setItem('token', data.token);
+
+                // ADMIN
+                if (data.rol_id == 2) {
+
+                    window.location.href = '/admin.adminDashboard';
+
+                }
+                // USUARIO NORMAL
+                else if (data.rol_id == 1) {
+
+                    window.location.href = '/login.inicio';
+
+                }
+
+            } else {
+
+                alert(data.message);
+
+            }
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    });
+</script>
 
 </html>

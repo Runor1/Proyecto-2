@@ -29,7 +29,7 @@
 
             <div class="d-flex">
 
-                <a href="/inicio" class="btn btn-login-neon">
+                <a href="/" class="btn btn-login-neon">
                     Volver
                 </a>
 
