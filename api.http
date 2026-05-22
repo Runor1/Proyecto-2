@@ -1,0 +1,41 @@
+### Login
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "1234"
+}
+
+###
+
+### Ver clases
+GET http://localhost:8000/api/clases
+Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
+
+###
+
+### Crear clase
+POST http://localhost:8000/api/clases
+Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
+Content-Type: application/json
+
+{
+    "nombre": "Zumba",
+    "descripcion": "Clase de baile fitness",
+    "diaSemana": "Lunes",
+    "horario": "08:00:00",
+    "capacidad": 20
+}
+
+###
+
+### Ver usuarios
+GET http://localhost:8000/api/usuarios
+Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
+
+###
+
+### Ver reservas
+GET http://localhost:8000/api/reservas
+Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
