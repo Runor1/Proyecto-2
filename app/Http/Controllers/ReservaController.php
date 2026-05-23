@@ -17,6 +17,11 @@ class ReservaController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'user_id'  => 'required|exists:users,id',
+            'clase_id' => 'required|exists:clases,id',
+        ]);
+        
         $clase = Clase::find($request->clase_id);
         if (!$clase) {
             return response()->json(['error' => 'Clase no encontrada'], 404);

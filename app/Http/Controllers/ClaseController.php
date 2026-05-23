@@ -14,6 +14,14 @@ class ClaseController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre'      => 'required|string|max:100',
+            'descripcion' => 'required|string',
+            'diaSemana'   => 'required|string',
+            'horario'     => 'required',
+            'capacidad'   => 'required|integer|min:1',
+        ]);
+
         $existe = Clase::where('diaSemana', $request->diaSemana)
             ->where('horario', $request->horario)
             ->exists();

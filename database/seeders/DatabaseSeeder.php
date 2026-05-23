@@ -27,32 +27,32 @@ class DatabaseSeeder extends Seeder
         // Crear roles si no existen
         if (DB::table('rols')->count() == 0) {
             DB::table('rols')->insert([
-                ['nombre' => 'ROLE_USER'],
-                ['nombre' => 'ROLE_ADMIN'],
+                ['name' => 'ROLE_USER'],
+                ['name' => 'ROLE_ADMIN'],
             ]);
         }
 
-        if (!User::where('userName', 'usuario')->exists()) {
+        if (!User::where('username', 'usuario')->exists()) {
             User::create([
                 'name'        => 'Juan',
                 'apellidoUno' => 'Perez',
                 'apellidoDos' => 'Lopez',
                 'email'       => 'usuario@gmail.com',
                 'telefono'    => '88888888',
-                'userName'    => 'usuario',
+                'username'    => 'usuario',
                 'password'    => Hash::make('1234'),
                 'rol_id'      => 1,
             ]);
         }
 
-        if (!User::where('userName', 'admin')->exists()) {
+        if (!User::where('username', 'admin')->exists()) {
             User::create([
                 'name'        => 'Admin',
                 'apellidoUno' => 'Principal',
                 'apellidoDos' => 'Sistema',
                 'email'       => 'admin@gmail.com',
                 'telefono'    => '99999999',
-                'userName'    => 'admin',
+                'username'    => 'admin',
                 'password'    => Hash::make('1234'),
                 'rol_id'      => 2,
             ]);

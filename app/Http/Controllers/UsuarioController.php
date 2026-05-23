@@ -15,7 +15,16 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-        $existe = User::where('userName', $request->userName)->exists();
+        $request->validate([
+            'name'      => 'required|string',
+            'apellidoUno' => 'required|string',
+            'email'     => 'required|email|unique:users,email',
+            'telefono'  => 'required',
+            'username'  => 'required|unique:users,username',
+            'password'  => 'required|min:6',
+        ]);
+        
+        $existe = User::where('username', $request->username)->exists();
         if ($existe) {
             return response()->json(['error' => 'El nombre de usuario ya existe'], 400);
         }
@@ -25,7 +34,7 @@ class UsuarioController extends Controller
             'apellidos'   => $request->apellidos,
             'email'       => $request->email,
             'telefono'    => $request->telefono,
-            'userName'    => $request->userName,
+            'username'    => $request->username,
             'password'    => Hash::make($request->password),
             'rol_id'      => $request->rol_id ?? 1,
         ]);
@@ -75,7 +84,8 @@ class UsuarioController extends Controller
         return view('user.historial');
     }
 
-    public function getHorarioClases(){
+    public function getHorarioClases()
+    {
         return view('user.horarioClases');
     }
 }

@@ -12,11 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
-    })
-    ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
+        $middleware->alias([
+            'auth' => \App\Http\Middleware\Authenticate::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->shouldRenderJsonWhen(function ($request, $e) {
+            return $request->is('api/*');
+        });
     })->create();

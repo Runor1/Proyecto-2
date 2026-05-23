@@ -3,7 +3,7 @@ POST http://localhost:8000/api/login
 Content-Type: application/json
 
 {
-    "email": "admin@gmail.com",
+    "username": "admin",
     "password": "1234"
 }
 
@@ -11,13 +11,13 @@ Content-Type: application/json
 
 ### Ver clases
 GET http://localhost:8000/api/clases
-Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
+Authorization: Bearer 1|V8kCYJusFy7pUy2TgmXg1AUIQrk9mL0j5uhp2HEo124247e2
 
 ###
 
 ### Crear clase
 POST http://localhost:8000/api/clases
-Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
+Authorization: Bearer 1|V8kCYJusFy7pUy2TgmXg1AUIQrk9mL0j5uhp2HEo124247e2
 Content-Type: application/json
 
 {
@@ -32,10 +32,10 @@ Content-Type: application/json
 
 ### Ver usuarios
 GET http://localhost:8000/api/usuarios
-Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
+Authorization: Bearer 1|V8kCYJusFy7pUy2TgmXg1AUIQrk9mL0j5uhp2HEo124247e2
 
 ###
 
 ### Ver reservas
 GET http://localhost:8000/api/reservas
-Authorization: Bearer "1|0fDFOfu2aTAuunE9uAOSWspRyanBf2aXTPO9p5403637e6d9"
+Authorization: Bearer 1|V8kCYJusFy7pUy2TgmXg1AUIQrk9mL0j5uhp2HEo124247e2
