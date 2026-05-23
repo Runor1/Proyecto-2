@@ -98,7 +98,7 @@
                 localStorage.setItem('rol_id', data.rol_id);
 
                 // GUARDAR USERNAME
-                localStorage.setItem('username', data.userName);
+                localStorage.setItem('username', data.user.username);
 
                 // REDIRECCION SEGÚN ROL
 

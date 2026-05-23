@@ -94,11 +94,11 @@
 
 <script>
     function logout() {
-        window.location.href = '/login';
 
         localStorage.removeItem('token');
         localStorage.removeItem('rol_id');
         localStorage.removeItem('username');
+        window.location.href = '/';
 
 
     }
@@ -144,7 +144,7 @@
 </script>
 
 <script>
-    getNombre()
+    getNombre();
 </script>
 
 </html>

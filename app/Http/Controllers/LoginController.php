@@ -8,7 +8,7 @@ class LoginController extends Controller
 {
 
 
-    public function autenticar(Request $request)
+    /*public function autenticar(Request $request)
     {
         $credenciales = [
             'username' => $request->username,
@@ -29,7 +29,7 @@ class LoginController extends Controller
         return back()->withErrors([
             'login' => 'Credenciales incorrectas'
         ]);
-    }
+    }*/
     public function login()
     {
         return view('login.login');

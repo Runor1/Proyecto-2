@@ -84,30 +84,26 @@ function authFetch(url, options = {}) {
     });
 }
 function getNombre() {
-    document.addEventListener("DOMContentLoaded", async () => {
 
-        const response = await authFetch("/api/usuarios/me");
+    const username = localStorage.getItem("username");
 
-        if (!response.ok) return;
+    const elemento = document.getElementById("nombreUsuario");
 
-        const usuario = await response.json();
+    if (!username || !elemento) return;
 
-        const nombreCompleto = `${usuario.nombre} ${usuario.apellidoUno}`;
+    const ruta = window.location.pathname;
 
-        const elemento = document.getElementById("nombreUsuario");
+    if (ruta.includes("inicio") || ruta === "/") {
 
-        const ruta = window.location.pathname;
+        elemento.textContent = `¡Hola, ${username}! 👋`;
 
-        if (ruta.includes("inicio")) {
-            elemento.textContent = `¡Hola, ${nombreCompleto}! 👋`;
-        }
+    } else if (ruta.includes("historial")) {
 
-        else if (ruta.includes("historial")) {
-            elemento.textContent = `Historial de ${nombreCompleto}`;
-        }
+        elemento.textContent = `Historial de ${username}`;
 
-        else {
-            elemento.textContent = nombreCompleto;
-        }
-    });
+    } else {
+
+        elemento.textContent = username;
+
+    }
 }

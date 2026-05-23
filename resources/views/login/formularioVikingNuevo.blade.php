@@ -61,6 +61,7 @@
 
         </div>
     </div>
+    <script src="/js/app.js"></script>
     <script>
         document.getElementById('registro').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -88,7 +89,7 @@
                 const result = await response.json();
                 if (response.ok) {
                     alert('Usuario creado correctamente');
-                    window.location.href = '/usuariosVista';
+                    window.location.href = isAdmin() ? "/usuariosVista" : "/";
                 } else {
                     alert(result.message || 'Error al crear el usuario');
                 }
