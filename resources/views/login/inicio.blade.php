@@ -90,19 +90,61 @@
             </div>
         </footer>
 
-        <button onclick="logout()">Cerrar sesión</button>
 </body>
 
 <script>
     function logout() {
+        window.location.href = '/login';
 
         localStorage.removeItem('token');
         localStorage.removeItem('rol_id');
         localStorage.removeItem('username');
 
-        window.location.href = '/login';
 
     }
+</script>
+
+<script src="/js/app.js"></script>
+
+<script>
+    const container = document.getElementById("authButtons");
+
+    if (isAuthenticated()) {
+
+        if (isAdmin()) {
+            container.innerHTML = `
+                <ul class="nav nav-tabs custom-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/horarioClases">Clases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link btn-logout" onclick="logout()">Salir</button>
+                    </li>
+                </ul>
+                `;
+        } else if (isUser()) {
+            container.innerHTML = `
+                <ul class="nav nav-tabs custom-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/historial">Historial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/horarioClases">Clases</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link btn-logout" onclick="logout()">Salir</button>
+                    </li>
+                </ul>
+                `;
+        }
+    }
+</script>
+
+<script>
+    getNombre()
 </script>
 
 </html>

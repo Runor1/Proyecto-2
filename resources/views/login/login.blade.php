@@ -105,14 +105,14 @@
                 // ADMIN
                 if (data.rol_id == 2) {
 
-                    window.location.href = '/admin';
+                    window.location.href = '/';
 
                 }
 
                 // USUARIO NORMAL
                 else if (data.rol_id == 1) {
 
-                    window.location.href = '/horarioClases';
+                    window.location.href = '/';
 
                 }
 

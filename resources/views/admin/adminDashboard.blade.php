@@ -53,4 +53,7 @@
 
 </body>
 
+<script src="/js/app.js"></script>
+
+<script> requireAdmin();</script>
 </html>

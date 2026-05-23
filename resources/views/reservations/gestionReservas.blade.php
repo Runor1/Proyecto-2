@@ -155,5 +155,7 @@
     </script>
 
 </body>
+<script src="/js/app.js"></script>
+<script>requireAuth() </script>
 
 </html>
