@@ -10,6 +10,8 @@ Route::get('/', function () {
     return view('login.inicio');
 });
 
+Route::post('/login', [LoginController::class, 'autenticar']);
+
 Route::get('/login', [LoginController::class, 'login']);
 
 Route::get('/formulario', [LoginController::class, 'formulario']);
@@ -29,6 +31,3 @@ Route::get('/horarioClases', [UsuarioController::class, 'getHorarioClases']);
 Route::get('/reservas', [ReservaController::class, 'reservas']);
 
 route::get('/usuariosVista', [AdminController::class, 'usuariosVista']);
-
-
-

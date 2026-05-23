@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UsuarioController;
@@ -12,19 +13,27 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', function (Request $request) {
+
     $request->validate([
         'username' => 'required',
         'password' => 'required'
     ]);
-    $user = \App\Models\User::where('username', $request->username)->first();
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Credenciales inválidas'], 401);
+
+    $user = User::where('username', $request->username)->first();
+
+    if (!$user || !Hash::check($request->password, $user->password)) {
+
+        return response()->json([
+            'message' => 'Credenciales inválidas'
+        ], 401);
     }
+
     $token = $user->createToken('token')->plainTextToken;
+
     return response()->json([
-        'token'    => $token,
+        'token' => $token,
         'rol_id'   => $user->rol_id,
-        'username' => $user->username
+        'user' => $user
     ]);
 });
 
@@ -50,4 +59,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
     Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
     Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
+});
+
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+
+    return response()->json($request->user());
 });

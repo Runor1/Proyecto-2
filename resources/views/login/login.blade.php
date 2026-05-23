@@ -60,8 +60,13 @@
 
         e.preventDefault();
 
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
+        var username = document.getElementById('username').value.trim();
+        var password = document.getElementById('password').value.trim();
+
+        if (username === '' || password === '') {
+            alert('Complete todos los campos');
+            return;
+        }
 
         try {
 
@@ -83,34 +88,55 @@
 
             var data = await response.json();
 
+            // LOGIN EXITOSO
             if (response.ok) {
 
+                // GUARDAR TOKEN
                 localStorage.setItem('token', data.token);
+
+                // GUARDAR ROL
+                localStorage.setItem('rol_id', data.rol_id);
+
+                // GUARDAR USERNAME
+                localStorage.setItem('username', data.userName);
+
+                // REDIRECCION SEGÚN ROL
 
                 // ADMIN
                 if (data.rol_id == 2) {
 
-                    //window.location.href = '/admin.adminDashboard';
                     window.location.href = '/admin';
 
                 }
+
                 // USUARIO NORMAL
                 else if (data.rol_id == 1) {
 
-                    //window.location.href = '/login.inicio';
-                    window.location.href = '/';
+                    window.location.href = '/horarioClases';
 
                 }
 
-            } else {
+                // ROL DESCONOCIDO
+                else {
 
-                alert(data.message);
+                    alert('Rol no válido');
+
+                }
+
+            }
+
+            // ERROR LOGIN
+            else {
+
+                alert(data.message || 'Credenciales incorrectas');
 
             }
 
         } catch (error) {
 
             console.log(error);
+
+            alert('Error al conectar con el servidor');
 
         }
 

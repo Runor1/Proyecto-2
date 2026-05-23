@@ -17,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth' => \App\Http\Middleware\Authenticate::class,
         ]);
     })
+    ->withMiddleware(function (Middleware $middleware): void {
+
+        $middleware->statefulApi();
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(function ($request, $e) {
             return $request->is('api/*');

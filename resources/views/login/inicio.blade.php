@@ -90,7 +90,19 @@
             </div>
         </footer>
 
-
+        <button onclick="logout()">Cerrar sesión</button>
 </body>
+
+<script>
+    function logout() {
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('rol_id');
+        localStorage.removeItem('username');
+
+        window.location.href = '/login';
+
+    }
+</script>
 
 </html>
