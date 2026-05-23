@@ -90,13 +90,15 @@
                 // ADMIN
                 if (data.rol_id == 2) {
 
-                    window.location.href = '/admin.adminDashboard';
+                    //window.location.href = '/admin.adminDashboard';
+                    window.location.href = '/admin';
 
                 }
                 // USUARIO NORMAL
                 else if (data.rol_id == 1) {
 
-                    window.location.href = '/login.inicio';
+                    //window.location.href = '/login.inicio';
+                    window.location.href = '/';
 
                 }
 

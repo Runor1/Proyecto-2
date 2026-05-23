@@ -91,7 +91,47 @@
 
     </div>
 
-    
+    <script>
+        async function cargarUsuarios() {
+            const token = localStorage.getItem('token');
+            const response = await fetch('/api/usuarios', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
+                }
+            });
+            const usuarios = await response.json();
+            const tbody = document.getElementById('tbodyUsuarios');
+            tbody.innerHTML = '';
+            usuarios.forEach(u => {
+                tbody.innerHTML += `
+                <tr>
+                    <td>${u.name}</td>
+                    <td>${u.apellidoUno} ${u.apellidoDos}</td>
+                    <td>${u.email}</td>
+                    <td>${u.telefono}</td>
+                    <td>${u.username}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(${u.id})">Eliminar</button>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        async function eliminarUsuario(id) {
+            if (!confirm('¿Eliminar este usuario?')) return;
+            const token = localStorage.getItem('token');
+            await fetch('/api/usuarios/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            cargarUsuarios();
+        }
+
+        cargarUsuarios();
+    </script>
 
 </body>
 

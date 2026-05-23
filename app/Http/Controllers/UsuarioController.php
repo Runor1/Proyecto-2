@@ -30,8 +30,9 @@ class UsuarioController extends Controller
         }
 
         $user = User::create([
-            'nombre'      => $request->nombre,
-            'apellidos'   => $request->apellidos,
+            'name'      => $request->name,
+            'apellidoUno' => $request->apellidoUno,
+            'apellidoDos' => $request->apellidoDos,
             'email'       => $request->email,
             'telefono'    => $request->telefono,
             'username'    => $request->username,

@@ -67,7 +67,47 @@
         </div>
 
     </div>
+    <script>
+        async function cargarClases() {
+            const token = localStorage.getItem('token');
+            const response = await fetch('/api/clases', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
+                }
+            });
+            const clases = await response.json();
+            const tbody = document.getElementById('tbodyClases');
+            tbody.innerHTML = '';
+            clases.forEach(clase => {
+                tbody.innerHTML += `
+                <tr>
+                    <td>${clase.nombre}</td>
+                    <td>${clase.descripcion}</td>
+                    <td>${clase.diaSemana}</td>
+                    <td>${clase.horario}</td>
+                    <td>${clase.capacidad}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarClase(${clase.id})">Eliminar</button>
+                    </td>
+                </tr>`;
+            });
+        }
 
+        async function eliminarClase(id) {
+            if (!confirm('¿Eliminar esta clase?')) return;
+            const token = localStorage.getItem('token');
+            await fetch('/api/clases/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            cargarClases();
+        }
+
+        cargarClases();
+    </script>
 
 </body>
 

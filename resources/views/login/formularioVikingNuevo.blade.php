@@ -61,7 +61,42 @@
 
         </div>
     </div>
-
+    <script>
+        document.getElementById('registro').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            const data = {
+                name: document.querySelector('[name=nombre]').value,
+                apellidoUno: document.querySelector('[name=apellidoUno]').value,
+                apellidoDos: document.querySelector('[name=apellidoDos]').value,
+                telefono: document.querySelector('[name=telefono]').value,
+                email: document.querySelector('[name=email]').value,
+                username: document.querySelector('[name=username]').value,
+                password: document.querySelector('[name=password]').value,
+                rol_id: 1,
+            };
+            try {
+                const response = await fetch('/api/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Usuario creado correctamente');
+                    window.location.href = '/usuariosVista';
+                } else {
+                    alert(result.message || 'Error al crear el usuario');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    </script>
 </body>
 
 </html>
