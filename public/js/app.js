@@ -107,3 +107,55 @@ function getNombre() {
 
     }
 }
+
+async function cargarClases(dia, el) {
+    document.querySelectorAll('.dia').forEach(d => d.classList.remove('activo'));
+    el.classList.add('activo');
+
+    const response = await authFetch('/api/clases');
+    const clases = await response.json();
+    const lista = document.getElementById('listaClases');
+    const mensaje = document.getElementById('mensajeVacio');
+
+    //const filtradas = clases.filter(c => c.diaSemana.toUpperCase() === dia);
+    const filtradas = clases.filter(c => c.diaSemana === dia);
+
+    if (filtradas.length === 0) {
+        lista.innerHTML = '';
+        mensaje.innerHTML = '<p class="text-muted">No hay clases disponibles este día.</p>';
+        return;
+    }
+
+    mensaje.innerHTML = '';
+    lista.innerHTML = filtradas.map(c => `
+        <div class="clase-card">
+            <div>
+                <h5>${c.nombre}</h5>
+                <p>${c.descripcion}</p>
+                <small>🕐 ${c.horario} | 👥 Cupos: ${c.capacidad}</small>
+            </div>
+            <button class="btn btn-main" onclick="reservar(${c.id})">
+                Reservar
+            </button>
+        </div>
+    `).join('');
+}
+
+async function reservar(claseId) {
+    const userId = localStorage.getItem('user_id');
+    const response = await authFetch('/api/reservas', {
+        method: 'POST',
+        body: JSON.stringify({
+            user_id: userId,
+            clase_id: claseId,
+            fechaReserva: new Date().toISOString().split('T')[0]
+        })
+    });
+    const result = await response.json();
+    if (response.ok) {
+        alert('¡Reserva realizada correctamente!');
+        cargarClases(document.querySelector('.dia.activo')?.textContent.trim(), document.querySelector('.dia.activo'));
+    } else {
+        alert(result.error || result.message || 'Error al reservar');
+    }
+}

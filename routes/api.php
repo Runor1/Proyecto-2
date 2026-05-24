@@ -33,7 +33,8 @@ Route::post('/login', function (Request $request) {
     return response()->json([
         'token' => $token,
         'rol_id'   => $user->rol_id,
-        'user' => $user
+        'username' => $user->username,
+        'user_id'  => $user->id,
     ]);
 });
 

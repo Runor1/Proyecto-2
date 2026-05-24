@@ -98,14 +98,17 @@
                 localStorage.setItem('rol_id', data.rol_id);
 
                 // GUARDAR USERNAME
-                localStorage.setItem('username', data.user.username);
+                localStorage.setItem('username', data.username);
+
+                // GUARDAR USER_ID
+                localStorage.setItem('user_id', data.user_id);
 
                 // REDIRECCION SEGÚN ROL
 
                 // ADMIN
                 if (data.rol_id == 2) {
 
-                    window.location.href = '/';
+                    window.location.href = '/admin';
 
                 }
 

@@ -45,43 +45,43 @@
 
             <a href="#"
                 class="dia"
-                onclick="cargarClases('LUNES', this)">
+                onclick="cargarClases('Lunes', this)">
                 LUN
             </a>
 
             <a href="#"
                 class="dia"
-                onclick="cargarClases('MARTES', this)">
+                onclick="cargarClases('Martes', this)">
                 MAR
             </a>
 
             <a href="#"
                 class="dia"
-                onclick="cargarClases('MIERCOLES', this)">
+                onclick="cargarClases('Miércoles', this)">
                 MIÉ
             </a>
 
             <a href="#"
                 class="dia"
-                onclick="cargarClases('JUEVES', this)">
+                onclick="cargarClases('Jueves', this)">
                 JUE
             </a>
 
             <a href="#"
                 class="dia"
-                onclick="cargarClases('VIERNES', this)">
+                onclick="cargarClases('Viernes', this)">
                 VIE
             </a>
 
             <a href="#"
                 class="dia"
-                onclick="cargarClases('SABADO', this)">
+                onclick="cargarClases('Sábado', this)">
                 SÁB
             </a>
 
             <a href="#"
                 class="dia"
-                onclick="cargarClases('DOMINGO', this)">
+                onclick="cargarClases('Domingo', this)">
                 DOM
             </a>
 
