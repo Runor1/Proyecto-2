@@ -31,3 +31,7 @@ Route::get('/horarioClases', [UsuarioController::class, 'getHorarioClases']);
 Route::get('/reservas', [ReservaController::class, 'reservas']);
 
 route::get('/usuariosVista', [AdminController::class, 'usuariosVista']);
+
+Route::get('/reservas/{id}', function ($id) {
+    return view('reservations.reservas', ['id' => $id]);
+});

@@ -134,17 +134,22 @@ async function cargarClases(dia, el) {
 
     mensaje.innerHTML = '';
     lista.innerHTML = filtradas.map(c => `
-        <div class="clase-card">
-            <div>
-                <h5>${c.nombre}</h5>
-                <p>${c.descripcion}</p>
-                <small>🕐 ${c.horario} | 👥 Cupos: ${c.capacidad}</small>
-            </div>
-            <button class="btn btn-main" onclick="reservar(${c.id})">
-                Reservar
-            </button>
+    <div class="clase-item">
+
+        <div class="hora">
+            ${c.horario}
         </div>
-    `).join('');
+
+        <div class="info">
+            <div class="nombre">${c.nombre}</div>
+        </div>
+
+        <a href="/reservas/${c.id}" class="btn-mas">
+            Más
+        </a>
+
+    </div>
+`).join('');
 }
 
 async function reservar(claseId) {
@@ -160,6 +165,7 @@ async function reservar(claseId) {
     const result = await response.json();
     if (response.ok) {
         alert('¡Reserva realizada correctamente!');
+        window.location.href = "/horarioClases";
         cargarClases(document.querySelector('.dia.activo')?.textContent.trim(), document.querySelector('.dia.activo'));
     } else {
         alert(result.error || result.message || 'Error al reservar');

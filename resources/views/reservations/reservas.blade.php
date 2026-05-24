@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/reservas.css">
 </head>
 
-<body>
+<>
 
     <div class="container-fluid px-5">
 
@@ -70,12 +70,67 @@
     </footer>
 
 
+    <script src="/js/app.js"></script>
+
+<script>
+
+    requireAuth();
+
+    async function cargarDetalleClase() {
+
+        const url = window.location.pathname;
+        const id = url.split('/').pop();
+
+        const response = await authFetch('/api/clases');
+
+        const clases = await response.json();
+
+        const clase = clases.find(c => c.id == id);
+
+        const detalle = document.getElementById("detalleClase");
+
+        if (!clase) {
+
+            detalle.innerHTML = `
+                <p>No se encontró la clase</p>
+            `;
+
+            return;
+        }
+
+        detalle.innerHTML = `
+            <h2>${clase.nombre}</h2>
+
+            <p>${clase.descripcion}</p>
+
+            <p>${clase.diaSemana}</p>
+
+            <p>${clase.horario}</p>
+
+            <p class="${clase.capacidad == 0 ? 'estado lleno' : 'estado disponible'}">
+
+                ${clase.capacidad == 0
+                    ? 'Clase llena'
+                    : clase.capacidad + ' cupos disponibles'}
+
+            </p>
+
+            <button
+                class="btn btn-main w-100 mt-3"
+                onclick="reservar(${clase.id})"
+                ${clase.capacidad == 0 ? 'disabled' : ''}
+            >
+                Reservar
+            </button>
+        `;
+    }
+
+    cargarDetalleClase();
+
+</script>
 
 </body>
 
-<script src="/js/app.js"></script>
-<script>
-    requireAuth()
-</script>
+
 
 </html>

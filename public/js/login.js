@@ -50,7 +50,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
             // ADMIN
             if (data.rol_id == 2) {
 
-                window.location.href = '/admin';
+                window.location.href = '/';
 
             }
 
