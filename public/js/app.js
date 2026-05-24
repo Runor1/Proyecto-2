@@ -56,6 +56,14 @@ function requireAdmin() {
     }
 }
 
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol_id');
+    localStorage.removeItem('username');
+    localStorage.removeItem('user_id');
+    window.location.href = '/';
+}
+
 function authFetch(url, options = {}) {
     const token = getToken();
 
@@ -116,8 +124,6 @@ async function cargarClases(dia, el) {
     const clases = await response.json();
     const lista = document.getElementById('listaClases');
     const mensaje = document.getElementById('mensajeVacio');
-
-    //const filtradas = clases.filter(c => c.diaSemana.toUpperCase() === dia);
     const filtradas = clases.filter(c => c.diaSemana === dia);
 
     if (filtradas.length === 0) {
@@ -158,4 +164,97 @@ async function reservar(claseId) {
     } else {
         alert(result.error || result.message || 'Error al reservar');
     }
+}
+
+
+async function cargarHistorial() {
+    const userId = localStorage.getItem('user_id');
+    const response = await authFetch('/api/reservas');
+    const reservas = await response.json();
+    const misReservas = reservas.filter(r => r.user_id == parseInt(userId));
+
+    const tbody = document.getElementById('tablaHistorial');
+    tbody.innerHTML = '';
+
+    if (misReservas.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5">No tenés reservas aún.</td></tr>';
+        return;
+    }
+
+    misReservas.forEach(r => {
+        tbody.innerHTML += `
+                <tr>
+                    <td>${r.clase ? r.clase.nombre : r.clase_id}</td>
+                    <td>${r.clase ? r.clase.capacidad : '-'}</td>
+                    <td>${r.fechaReserva}</td>
+                    <td>${r.clase ? r.clase.horario : '-'}</td>
+                    <td>${r.estado}</td>
+                </tr>`;
+    });
+}
+
+let todasReservas = [];
+
+async function cargarReservas() {
+    const token = localStorage.getItem('token');
+    const response = await fetch('/api/reservas', {
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
+        }
+    });
+    todasReservas = await response.json();
+    renderizar(todasReservas);
+}
+
+function renderizar(reservas) {
+    const tbody = document.getElementById('tbodyReservas');
+    tbody.innerHTML = '';
+    reservas.forEach(r => {
+        tbody.innerHTML += `
+                <tr>
+                    <td>${r.user ? r.user.name : r.user_id}</td>
+                    <td>${r.clase ? r.clase.nombre : r.clase_id}</td>
+                    <td>${r.fechaReserva}</td>
+                    <td>${r.estado}</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning me-1" onclick="cancelarReserva(${r.id})">Cancelar</button>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarReserva(${r.id})">Eliminar</button>
+                    </td>
+                </tr>`;
+    });
+}
+
+function filtrar(estado, btn) {
+    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('filtro-activo'));
+    btn.classList.add('filtro-activo');
+    if (estado === '') {
+        renderizar(todasReservas);
+    } else {
+        renderizar(todasReservas.filter(r => r.estado === estado));
+    }
+}
+
+async function cancelarReserva(id) {
+    if (!confirm('¿Cancelar esta reserva?')) return;
+    const token = localStorage.getItem('token');
+    await fetch('/api/reservas/' + id + '/cancelar', {
+        method: 'PATCH',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
+    cargarReservas();
+}
+
+async function eliminarReserva(id) {
+    if (!confirm('¿Eliminar esta reserva?')) return;
+    const token = localStorage.getItem('token');
+    await fetch('/api/reservas/' + id, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
+    cargarReservas();
 }

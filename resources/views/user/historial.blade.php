@@ -87,6 +87,7 @@
     
 <script src="/js/app.js"></script>
 <script>requireAuth() </script>
+<script>getNombre(); cargarHistorial();</script>
 </body>
 
 </html>
